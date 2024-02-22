@@ -1,1 +1,3 @@
 .dart_tool
+
+lib/src/metadata.analyzer.dart

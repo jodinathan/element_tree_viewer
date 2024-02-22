@@ -2,15 +2,27 @@
   "name": "dart-element-tree-viewer",
   "displayName": "Dart element tree viewer",
   "description": "Visualize the Dart tree elements",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.2",
+  "private": false,
+  "repository": "https://github.com/jodinathan/element_tree_viewer/tree/main/plugins/element_tree_vscode",
+  "bugs": {
+		"url": "https://github.com/jodinathan/element_tree_viewer/tree/main/plugins/element_tree_vscode/issues"
+	},
+  "publisher": "jodirez",
+  "icon": "media/logo.png",
   "license": "MIT",
   "engines": {
     "vscode": "^1.81.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "keywords": [
+		"dart",
+		"flutter",
+		"source gen"
+	],
+	"categories": [
+		"Visualization",
+		"Programming Languages"
+	],
   "activationEvents": [
     "*"
   ],
