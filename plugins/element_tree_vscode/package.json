@@ -34,8 +34,8 @@
         "title": "Dart tree view",
         "category": "Dart",
         "icon": {
-          "light": "./media/dep.svg",
-          "dark": "./media/dep.svg"
+          "light": "./media/icon.svg",
+          "dark": "./media/icon.svg"
         }
       }
     ],
