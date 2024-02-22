@@ -1,0 +1,31 @@
+name: dart_element_tree_viewer
+description: A web app that uses AngularDart Components
+version: 0.0.1
+# homepage: https://www.example.com
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  ngdart: ^8.0.0-dev.2
+  dispose: ^0.0.9+1
+  ackable: 
+    path: ../../ackable
+
+dev_dependencies:
+  ngtest: any
+  build_runner: any
+  build_version: any
+  build_test: any
+  build_web_compilers: any
+  lints: any
+  test: any
+  sass_builder: any
+  build: any
+
+dependency_overrides:
+  analyzer: ^6.4.1
+  build_modules: ^5.0.7
+  build_web_compilers: ^4.0.9
+  code_builder:
+   git: https://github.com/jodinathan/code_builder

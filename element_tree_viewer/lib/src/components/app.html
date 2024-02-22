@@ -1,0 +1,48 @@
+<div *ngIf="!hasResult"
+     class="loading">Loading...</div>
+
+
+<div class="result"
+     [class.isViewing]="isViewing"
+     *ngIf="hasResult">
+    <div class="props">
+        <div *ngFor="let key of item.keys">
+            <value-viewer [key]="key"
+                          [value]="item[key]"></value-viewer>
+        </div>
+    </div>
+
+    <div class="viewing"
+         *ngIf="isViewing">
+        <div class="title">
+            <div class="walked">
+                <div class="label">Vieweing: </div>
+                <div *ngFor="let item of walked"
+                     class="item">
+                    {{item.path.join('.')}}
+                </div>
+            </div>
+            <div class="isList"
+                 *ngIf="!isFetching && hasSubItem && viewing.isList">
+                <select #sel (change)="chooseViewingOption($event)">
+                    <option *ngFor="let item of viewingOptions"
+                            [value]="item.index"
+                            [selected]="item == chosenViewingOption">
+                        {{item.label}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div *ngIf="isFetching" class="loading">Loading...</div>
+
+        <div class="props"
+             *ngIf="!isFetching && hasSubItem">
+            <div *ngFor="let key of subitem.keys">
+                <value-viewer sub
+                              [key]="key"
+                              [value]="subitem[key]"></value-viewer>
+            </div>
+        </div>
+    </div>
+</div>

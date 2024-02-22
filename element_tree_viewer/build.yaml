@@ -1,0 +1,55 @@
+global_options:
+  build_web_compilers|ddc:
+    options:
+      environment:
+        dev: true
+        console: true
+
+targets:
+  $default:
+    sources:
+      exclude: [ "lib/builder.dart" ]
+    builders:
+      sass_builder|sass_builder:
+        enabled: False
+      dart_element_tree_viewer|scss_builder:
+        enabled: True
+      # -----------------------
+      build_web_compilers|entrypoint:
+        generate_for:
+          - web/main.dart
+          - lib/**/*.dart
+          - lib/*.dart
+        options:
+          compiler: dart2js
+          #compiler: dartdevc
+          dart2js_args:
+            #- --fast-startup
+            - -O1
+            #- --minify
+            #- --trust-primitives
+            #- --dump-info
+        release_options:
+          compiler: dart2js
+          dart2js_args:
+            #- --fast-startup
+            - -O4
+            #- --minify
+            #- --trust-primitives
+  scss_builder:
+    sources: [ "lib/builder.dart" ]
+    dependencies:
+      - build
+      - sass_builder
+
+builders:
+  scss_builder:
+    target: "scss_builder"
+    import: "package:dart_element_tree_viewer/builder.dart"
+    builder_factories: ["scssBuilder"]
+    build_to: cache
+    build_extensions:
+      .scss: [".scss.css"]
+      .sass: [".scss.css"]
+    applies_builders:
+      - sass_builder|sass_source_cleanup

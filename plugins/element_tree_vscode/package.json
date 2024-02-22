@@ -1,0 +1,45 @@
+{
+  "name": "dart-element-tree-viewer",
+  "displayName": "Dart element tree viewer",
+  "description": "Visualize the Dart tree elements",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.81.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "plugin/wrapper.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dart.tree.view",
+        "title": "Dart tree view",
+        "category": "Dart",
+        "icon": {
+          "light": "./media/dep.svg",
+          "dark": "./media/dep.svg"
+        }
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceFilename =~ /\\..*dart/",
+          "command": "dart.tree.view",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}

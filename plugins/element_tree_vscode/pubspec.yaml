@@ -1,0 +1,30 @@
+name: element_tree_vscode
+description: An absolute bare-bones web app.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+# Add regular dependencies here.
+dependencies:
+  js: ^0.6.7
+  path: ^1.8.0
+  watcher: any
+  ackable:
+    path: ../../../ackable
+
+dev_dependencies:
+  build_runner: ^2.4.7
+  build_web_compilers: ^4.0.0
+  lints: ^2.0.0
+  typings: any
+
+dependency_overrides: 
+  typings:
+    path: /Users/jonathanrezende/Projects/testes/typings/typings
+    # git: 
+    #   url: https://github.com/jodinathan/typings.git
+    #   path: typings
+  analyzer: ^6.3.0
+  build_modules: ^5.0.0

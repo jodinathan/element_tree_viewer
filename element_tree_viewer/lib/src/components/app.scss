@@ -1,0 +1,60 @@
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+:host {
+    .loading {
+        padding: 15px;
+        font-size: 13px;
+    }
+    .tab-panel {
+        width: 100%;
+        height: 100%;
+    }
+    .result {
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+        height: 100vh;
+
+        .props {
+            overflow-y: scroll;
+            height: 100%;
+            padding: 10px;
+        }
+
+        &.isViewing {
+            .viewing, .props {
+                height: 50%;
+            }
+
+            .viewing {
+                display: flex;
+                flex-flow: column nowrap;
+
+                .title {
+                    background: #ccc;
+                    color: #333;
+                    padding: 5px;
+
+                    .isList {
+                        material-dropdown-select {
+                            width: 120px;
+                        }
+                    }
+                }
+                .props {
+                    height: auto;
+                    flex-grow: 1;
+                }
+
+                .walked {
+                    display: flex;
+                    height: 30px;
+
+                    .item {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

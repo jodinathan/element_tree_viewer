@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+    padding: 5px 0;
+
+    .label {
+        margin-right: 5px;
+    }
+
+    &.isViewable {
+        cursor: pointer;
+
+        &:hover {
+            background: #444;
+        }
+
+        &.isViewing {
+            background: #e1e1e1;
+            color: #222;
+        }
+    }
+}
