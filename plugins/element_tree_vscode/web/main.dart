@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'dart:convert' as conv;
 import 'dart:js_util';
 
 import 'package:typings/d/vscode.dart' as vsc;
 import 'package:typings/d/core.dart' as js;
 import 'package:typings/d/child_process.dart' as cp;
-import 'package:path/path.dart' as p;
+import 'package:typings/d/vscode/vscode.dart';
 import 'package:typings/d/ws.dart' as ws;
 import 'package:ackable/ackable.dart' as ack;
 
@@ -14,7 +13,7 @@ class AckableWebview extends ack.Ackable with ack.OutgoingDictionary {
     webview.onDidReceiveMessage((ev) {
       final dart = dartify(ev);
 
-      print('WebViewReceive ${dart}\n${ev.runtimeType}');
+      print('WebViewReceive $dart\n${ev.runtimeType}');
       final map = dart as Map;
 
       _ctrl
@@ -35,13 +34,43 @@ class AckableWebview extends ack.Ackable with ack.OutgoingDictionary {
 }
 
 ack.Ackable? _ackSocket;
+String? filePath;
 
 Future<void> fnCmd(String dirPath) async {
-  vsc.cp.exec('dart pub global run element_syntax_tree $dirPath',
-      (err, stdout, stderr) {
-    print('PWD');
-    js.console.log([err, stdout, stderr]);
+  final command =
+      'dart pub global activate element_tree_console && dart pub global run element_tree_console $dirPath';
+
+  print('FnCmdStart: $command');
+  // cp.exec(command, (err, stdout, stderr) {
+  //   print('FnCmdDONE $err');
+  //   js.console.log([err, stdout, stderr]);
+  //   if (err != null) {
+  //     cmp.completeError(err);
+  //   } else {
+  //     print('OK!!!!');
+  //     cmp.complete();
+  //   }
+  // });
+  final terminal = vsc.vscode.window.createTerminal.$3("Open Terminal");
+
+  terminal.hide();
+  terminal.sendText(command, false);
+  terminal.sendText("; exit");
+
+  late Disposable disposeToken;
+
+  disposeToken = vsc.vscode.window.onDidCloseTerminal((closedTerminal) {
+    if (closedTerminal == terminal) {
+      disposeToken.dispose();
+      // if (terminal.exitStatus != null) {
+      //   cmp.complete();
+      // } else {
+      //   cmp.completeError("Terminal exited with undefined status");
+      // }
+    }
   });
+
+  // cp.exec(command, (err, stdout, stderr) {});
 }
 
 Future<ack.Ackable> makeConnection() async {
@@ -51,13 +80,30 @@ Future<ack.Ackable> makeConnection() async {
     return current;
   }
 
+  js.console.log(
+      ['Congratulations, your extension "devee.get" is now active!', filePath]);
+
   final cmp = Completer<ack.Ackable>();
-  final socket = ws.WebSocket('ws://localhost:4040');
 
-  socket.on('open', ([p0, p1]) {
-    final ackable = _ackSocket = ack.from(socket);
+  fnCmd(filePath!).then((ev) {
+    void makeSocket() {
+      final socket = ws.WebSocket('ws://localhost:4040');
 
-    cmp.complete(ackable);
+      socket
+        ..on('open', ([p0, p1]) {
+          final ackable = _ackSocket = ack.from(socket);
+
+          cmp.complete(ackable);
+        })
+        ..on('error', ([a, b]) {
+          print('SocketError $a === $b');
+          if (!cmp.isCompleted) {
+            makeSocket();
+          }
+        });
+    }
+
+    makeSocket();
   });
 
   return cmp.future;
@@ -78,6 +124,10 @@ Future<void> activate(vsc.ExtensionContext context,
       vsc.vscode.commands.registerCommand('dart.tree.view', ([a]) async {
     js.console.log(['make socket', a]);
 
+    final editor = vsc.vscode.window.activeTextEditor!;
+
+    filePath = editor.document.uri.fsPath;
+
     updateCursorPos();
 
     await vsc.vscode.commands
@@ -97,8 +147,9 @@ Future<void> activate(vsc.ExtensionContext context,
 
     try {
       js.console.log([panel.webview.asWebviewUri(onDiskPath)]);
-    } catch (e) {
-      print('GEE FUCK! $e');
+    } catch (e, st) {
+      print('ERROR! $e');
+      print(st);
       js.console.log(['seeeeerrrrrr', e]);
     }
 
@@ -125,22 +176,6 @@ Future<void> activate(vsc.ExtensionContext context,
       .add(vsc.vscode.window.onDidChangeTextEditorSelection((ev) {
     updateCursorPos();
   }));
-
-  return;
-
-  // final filePath = editor.document.uri.fsPath;
-
-  // js.console.log(
-  //     ['Congratulations, your extension "devee.get" is now active!', filePath]);
-  // js.console
-  //     .log(['curesor', editor.document.offsetAt(editor.selection.active)]);
-
-  // if (filePath != null && false) {
-  //   final dirPath = p.dirname(filePath);
-
-  //   print('FOOOOO $dirPath');
-  //   fnCmd(filePath);
-  // }
 }
 
 String getWebviewContent({required vsc.Uri dartJsSrc}) {

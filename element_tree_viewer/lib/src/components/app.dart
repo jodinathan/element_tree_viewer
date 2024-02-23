@@ -89,7 +89,7 @@ class AppComponent {
 
   bool get hasResult => _item != null;
 
-  Map<String, dynamic>? _item = testeItems[0];
+  Map<String, dynamic>? _item;
   Map<String, dynamic> get item => _item!;
 
   Value? _viewing;
@@ -105,7 +105,7 @@ class AppComponent {
   String _subitemKey = '';
   String get subitemKey => _subitemKey;
 
-  Value? _subitem = subItems1[0] as Value;
+  Value? _subitem;
   Value get subitem => _subitem!;
 
   bool get hasSubItem => _subitem != null;

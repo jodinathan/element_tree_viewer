@@ -1,5 +1,9 @@
 <div *ngIf="!hasResult"
-     class="loading">Loading...</div>
+     class="loading">
+    <div>Loading...</div>
+    <br/>
+    <div style="font-size: smaller;">The first execution can take more time to load.</div>
+</div>
 
 
 <div class="result"
@@ -24,7 +28,8 @@
             </div>
             <div class="isList"
                  *ngIf="!isFetching && hasSubItem && viewing.isList">
-                <select #sel (change)="chooseViewingOption($event)">
+                <select #sel
+                        (change)="chooseViewingOption($event)">
                     <option *ngFor="let item of viewingOptions"
                             [value]="item.index"
                             [selected]="item == chosenViewingOption">
@@ -34,7 +39,8 @@
             </div>
         </div>
 
-        <div *ngIf="isFetching" class="loading">Loading...</div>
+        <div *ngIf="isFetching"
+             class="loading">Loading...</div>
 
         <div class="props"
              *ngIf="!isFetching && hasSubItem">

@@ -1,6 +1,6 @@
 name: element_tree_console
 description: A console application used to traverse the analyzer elements of a Dart file.
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/jodinathan/element_tree_viewer/tree/main/element_tree_console
 
 environment:
@@ -19,6 +19,7 @@ dependencies:
   source_gen: ^1.5.0
   dart_style: ^2.3.4
   build: ^2.4.1
+  pub_semver: ^2.1.4
 
 dependency_overrides:
   code_builder:
