@@ -1,3 +1,6 @@
+## 0.0.4
+- Remove debug
+
 ## 0.0.3
 - Tree icon
 

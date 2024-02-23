@@ -42,12 +42,10 @@ Future<void> fnCmd(String dirPath) async {
 
   print('FnCmdStart: $command');
   // cp.exec(command, (err, stdout, stderr) {
-  //   print('FnCmdDONE $err');
   //   js.console.log([err, stdout, stderr]);
   //   if (err != null) {
   //     cmp.completeError(err);
   //   } else {
-  //     print('OK!!!!');
   //     cmp.complete();
   //   }
   // });
@@ -166,8 +164,6 @@ Future<void> activate(vsc.ExtensionContext context,
       ..forwardOnce('sub', ackable);
 
     webviewAck.once('view', result);
-
-    print('DONE! $lastCursorPos ${result is Map}');
   });
 
   context.subscriptions.add(disposable);

@@ -2,7 +2,7 @@
   "name": "dart-element-tree-viewer",
   "displayName": "Dart element tree viewer",
   "description": "Visualize the Dart tree elements",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "repository": "https://github.com/jodinathan/element_tree_viewer/tree/main/plugins/element_tree_vscode",
   "bugs": {
