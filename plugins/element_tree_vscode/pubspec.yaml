@@ -1,6 +1,6 @@
 name: element_tree_vscode
 description: An absolute bare-bones web app.
-version: 1.0.0
+version: 1.0.1
 publish_to: none
 
 environment:

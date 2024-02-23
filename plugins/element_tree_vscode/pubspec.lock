@@ -694,7 +694,7 @@ packages:
       path: "/Users/jonathanrezende/Projects/testes/typings/typings"
       relative: false
     source: path
-    version: "0.0.6+2"
+    version: "0.0.6+3"
   vector_math:
     dependency: transitive
     description:
